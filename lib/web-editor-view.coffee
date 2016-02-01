@@ -11,12 +11,9 @@ class WebEditorView extends ScrollView
   constructor: (uri) ->
     super
 
-    loc = location.pathname;
-    dir = loc.substring(0, loc.lastIndexOf('/'));
+    icestudio = __dirname + '/../icestudio/icestudio.html' + '#?file=' + uri
 
-    console.log
-
-    @.find('#web-view-iframe').attr('src', __dirname + '/../icestudio/icestudio.html')
+    @.find('#web-view-iframe').attr('src', icestudio)
     @uri = uri.split('/').pop()
 
   reloadIframe: () ->

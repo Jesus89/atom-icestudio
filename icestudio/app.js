@@ -22,7 +22,24 @@ angular.module('app', ['flowChart', ])
 //
 // Application controller.
 //
-.controller('AppCtrl', ['$scope', '$http', 'prompt', function AppCtrl ($scope, $http, prompt) {
+.controller('AppCtrl', ['$scope', '$http', '$location', 'prompt', function AppCtrl ($scope, $http, $location, prompt) {
+
+	filepath = $location.search().file
+
+	console.log(filepath);
+	//
+	// Setup the data-model for the chart.
+	//
+	$.getJSON(filepath, function() {
+	})
+	.done(function(data) {
+		$scope.chartDataModel = data;
+		$scope.chartViewModel = new flowchart.ChartViewModel($scope.chartDataModel);
+	})
+	.fail(function() {
+		$scope.chartDataModel = {}
+		$scope.chartViewModel = new flowchart.ChartViewModel($scope.chartDataModel);
+	});
 
 	//
 	// Code for the delete key.
@@ -57,7 +74,7 @@ angular.module('app', ['flowChart', ])
 	$scope.saveToPc = function () {
 
 		var data = $scope.chartDataModel
-		var filename = 'data.json'
+		var filename = filepath
 
 		if (!data) {
 			console.error('No data');
@@ -79,15 +96,6 @@ angular.module('app', ['flowChart', ])
 			0, 0, 0, 0, 0, false, false, false, false, 0, null);
 		a.dispatchEvent(e);
 	};
-
-	//
-	// Setup the data-model for the chart.
-	//
-	$http.get('data.json').success (function(data) {
-
-		$scope.chartDataModel = data
-		$scope.chartViewModel = new flowchart.ChartViewModel(data);
-	});
 
 	//
 	// Event handler for key-down on the flowchart.
@@ -386,10 +394,5 @@ angular.module('app', ['flowChart', ])
 
 		$scope.chartViewModel.deleteSelected();
 	};
-
-	//
-	// Create the view-model for the chart and attach to the scope.
-	//
-	//$scope.chartViewModel = new flowchart.ChartViewModel(chartDataModel);
 }])
 ;

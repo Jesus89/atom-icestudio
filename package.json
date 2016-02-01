@@ -1,0 +1,15 @@
+{
+  "name": "atom-icestudio",
+  "version": "0.0.1",
+  "description": "Graphic editor for FPGA",
+  "main": "./lib/main",
+  "repository": "https://github.com/bqlabs/atom-icestudio",
+  "license": "GPLv2",
+  "engines": {
+    "atom": "*"
+  },
+  "dependencies": {
+    "underscore-plus": "1.x",
+    "atom-space-pen-views": "^2.0.3"
+  }
+}
